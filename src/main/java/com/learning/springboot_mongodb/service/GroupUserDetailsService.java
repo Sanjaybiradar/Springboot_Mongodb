@@ -1,4 +1,5 @@
 package com.learning.springboot_mongodb.service;
+/*
 
 import com.learning.springboot_mongodb.entity.Employee;
 import com.learning.springboot_mongodb.repository.EmployeeRepository;
@@ -22,3 +23,4 @@ public class GroupUserDetailsService implements UserDetailsService {
         return employee.map(GroupUserDetails::new).orElseThrow(() -> new UsernameNotFoundException(empName+" does not exist"));
     }
 }
+*/

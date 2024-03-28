@@ -1,4 +1,5 @@
 package com.learning.springboot_mongodb.config;
+/*
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 
-    /*@Override
+    */
+/*@Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
                http .authorizeRequests().antMatchers("/api/v1/*").permitAll()
@@ -30,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("api/v1/employee/*").authenticated()
                 .and()
                 .httpBasic();
-    }*/
+    }*//*
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -42,3 +45,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
+*/

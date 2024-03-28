@@ -1,7 +1,14 @@
 server:
+  servlet:
+    context-path: /hrMgmtSystem
   port: 8082
 
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/employeedb
+      uri: mongodb://localhost:27017/HRManagementSystem
+
+  mvc:
+    view:
+      prefix: /src/main/resources/templates/
+      suffix: .jsp
