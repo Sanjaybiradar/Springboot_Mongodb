@@ -1,59 +1,46 @@
 package com.learning.springboot_mongodb.controller;
 
 import com.learning.springboot_mongodb.entity.Employee;
-import com.learning.springboot_mongodb.repository.EmployeeRepository;
-import com.learning.springboot_mongodb.service.EmployeeService;
+import com.learning.springboot_mongodb.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 
 @RestController
 @RequestMapping("/api/v1/employee")
 public class EmployeeController {
+    @Autowired
+    private EmployeeServiceImpl employeeServiceImpl;
 
-
-    private static final String DEFAULT_ACCESS= "ROLE_USER";
-    private static final String[] MODERATOR_ACCESS = {"ROLE_USER, ROLE_MODERATOR"};
-    private static final String[] ADMIN_ACCESS = {"ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN"};
-
-    private EmployeeService employeeService;
-    private EmployeeRepository employeeRepository;
-
-    public EmployeeController(EmployeeService employeeService,EmployeeRepository employeeRepository){
-        this.employeeService=employeeService;
-        this.employeeRepository=employeeRepository;
-    }
-
-    @PostMapping("/addEmployee")
-    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
-        employeeService.createEmployee(employee);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @GetMapping("/getAllEmployee")
+    public ResponseEntity <List< Employee >> receiveAllEmployee() {
+        return ResponseEntity.status(HttpStatus.OK).body(employeeServiceImpl.getAllEmployee());
     }
 
     @GetMapping("/getEmployee/{id}")
-    public Optional<Employee> getEmployeeById(@PathVariable String id){
-        return employeeService.receiveEmployeeById(id);
+    public ResponseEntity<Optional<Employee>> receiveEmployeeById(@Validated @PathVariable String id) {
+        return ResponseEntity.status(HttpStatus.OK).body(employeeServiceImpl.getEmployeeById(id));
     }
 
-    @PutMapping("/modifyEmployee")
-    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employeeDto){
-
-        employeeService.editEmployee(employeeDto);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    @PostMapping("/addEmployee")
+    public ResponseEntity<Optional<Employee>> addEmployee(@Validated @RequestBody Employee employee) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(employeeServiceImpl.createEmployee(employee));
     }
 
-    @DeleteMapping("/archiveEmployee/{id}")
-    public ResponseEntity<HttpStatus> removeEmpById(@PathVariable String id){
-        employeeService.eliminateEmpById(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    @PutMapping("/modifyEmployee/{id}")
+    public ResponseEntity < Employee > modifyEmployeeById(@Validated @PathVariable String id, @RequestBody Employee employee) throws Exception {
+        employee.setId(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeServiceImpl.updateEmployee(employee));
+    }
+
+    @DeleteMapping("/deleteEmployee/{id}")
+    public HttpStatus removeEmployee(@Validated @PathVariable String id) {
+        this.employeeServiceImpl.deleteEmployee(id);
+        return HttpStatus.OK;
     }
 }

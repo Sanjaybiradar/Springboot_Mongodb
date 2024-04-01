@@ -2,29 +2,29 @@ package com.learning.springboot_mongodb.entity;
 
 import com.learning.springboot_mongodb.dto.HomeAddress;
 import com.learning.springboot_mongodb.dto.OfficeAddress;
-import com.mongodb.lang.NonNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.Valid;
+
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
-@Document(collection = "EmployeeDetails")
+@NoArgsConstructor
+@Document(collection = "employeeDetails")
 public class Employee {
     @Id
-    @NonNull
+    @Valid
     private String id;
-    @NonNull
+    @Valid
     private String empName;
-    @NonNull
+    @Valid
     private String designation;
-    @NonNull
+    @Valid
     private HomeAddress homeAddress;
-    @NonNull
+    @Valid
     private OfficeAddress officeAddress;
-
 }

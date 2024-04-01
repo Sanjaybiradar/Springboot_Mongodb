@@ -1,40 +1,20 @@
 package com.learning.springboot_mongodb.service;
 
-import com.learning.springboot_mongodb.dto.HomeAddress;
 import com.learning.springboot_mongodb.entity.Employee;
-import com.learning.springboot_mongodb.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
+import java.util.List;
 import java.util.Optional;
 
-@Service
-public class EmployeeService {
-    @Autowired
-    private EmployeeRepository empRepo;
+public interface EmployeeService {
 
-    public String createEmployee(Employee employee){
-        empRepo.save(employee);
-        return "Employee Object Created in Database!";
-    }
+    Optional<Employee>   createEmployee(Employee Employee);
 
-    public Optional<Employee> receiveEmployeeById(String id) {
-        return empRepo.findById(id);
-    }
+    Employee updateEmployee(Employee Employee) throws Exception;
 
-    public Employee editEmployee(Employee employeeDto){
-        Employee empEntity = new Employee(
-                employeeDto.getId(),
-                employeeDto.getEmpName(),
-                employeeDto.getDesignation(),
-                employeeDto.getHomeAddress(),
-                employeeDto.getOfficeAddress()
-        );
-        return empRepo.save(empEntity);
-    }
+    List< Employee > getAllEmployee();
 
-    public void eliminateEmpById(String id){
-        empRepo.deleteById(id);
-    }
+    Optional<Employee> getEmployeeById(String EmployeeId);
+
+    void deleteEmployee(String id);
+
 }
