@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.Valid;
-
 
 @Data
 @AllArgsConstructor
@@ -17,14 +15,9 @@ import javax.validation.Valid;
 @Document(collection = "employeeDetails")
 public class Employee {
     @Id
-    @Valid
     private String id;
-    @Valid
     private String empName;
-    @Valid
     private String designation;
-    @Valid
     private HomeAddress homeAddress;
-    @Valid
     private OfficeAddress officeAddress;
 }

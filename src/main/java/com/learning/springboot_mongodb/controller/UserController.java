@@ -4,13 +4,11 @@ import com.learning.springboot_mongodb.entity.User;
 import com.learning.springboot_mongodb.service.impl.EmployeeServiceImpl;
 import com.learning.springboot_mongodb.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
@@ -22,19 +20,38 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-    @GetMapping("/index")
-    public String listOfUsers(Model model){
-        model.addAttribute("user",userService.getAllUsers());
-        return "users";
-    }
 
     @GetMapping("/")
     public String index(){
         return "index";
     }
 
-    @PostMapping("/addUser")
-    public ResponseEntity addUser(@RequestBody User user){
-        return userService.newUser(user);
+    @GetMapping("/signup")
+    public String signup(){
+        return "signup";
     }
+
+    @GetMapping("/users")
+    public String listOfUsers(Model model){
+        model.addAttribute("user",userService.getAllUsers());
+        return "users";
+    }
+
+
+    @GetMapping("/user/new")
+    public String createUserForm(){
+        return "create_user";
+    }
+
+    @PostMapping("/user/new/add")
+    public String saveUser(@ModelAttribute("user") User user){
+        userService.createUser(user);
+        return "redirect:/users";
+    }
+
+    @PostMapping("/addUser")
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(user));
+    }
+
 }

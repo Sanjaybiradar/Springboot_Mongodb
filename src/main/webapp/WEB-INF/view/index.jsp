@@ -27,6 +27,9 @@
                         <a class="nav-link" href="/hrMgmtSystem/api/v1/employee/getAllEmployee" method="get">Employee Details</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/hrMgmtSystem/users" method="get">User Details</a>
+                     </li>
+                    <li class="nav-item">
                         <a class="nav-link" th:action="@{/signup}" href="/hrMgmtSystem/signup" method="get">SignUp</a>
                     </li>
                     <!-- Add more menu items as needed -->
